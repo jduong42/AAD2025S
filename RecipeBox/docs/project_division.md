@@ -3,24 +3,7 @@
 ## Project Overview
 A React Native Recipe Box application using TheMealDB API that allows users to search for recipes, view details, and save favorites.
 
-## Assessment Requirements Coverage (40 points total)
-- ✅ 10+ documented requirements (2 points)
-- ✅ 3+ screens (Search, Detail, Favorites)
-- ✅ FlatList/ScrollView components (2 points)
-- ✅ Image components (2 points)
-- ✅ Custom components 2+ (2 points)
-- ✅ StyleSheets & Flexbox (1 point)
-- ✅ Centralized styles (2 points)
-- ✅ Themes (2 points)
-- ✅ Expo Navigation (2 points)
-- ✅ Route parameters (1 point)
-- ✅ React Context state management (2 points)
-- ✅ HTTP GET requests (2 points)
-- ✅ Event handlers (1 point)
-
----
-
-## 📋 App Requirements (10+)
+## App Requirements 
 
 1. The user can search for recipes by keyword using TheMealDB API
 2. The application must have exactly three distinct screens (Search, Recipe Detail, Favorites)
@@ -40,9 +23,9 @@ A React Native Recipe Box application using TheMealDB API that allows users to s
 
 ---
 
-# 👥 TEAM DIVISION
+# TEAM DIVISION
 
-## 🏗️ PART 1: Core Infrastructure & API Integration
+## PART 1: Core Infrastructure & API Integration
 **Responsible Team Member: [Juha Duong]**
 
 ### Scope
@@ -94,7 +77,7 @@ constants/
 
 ---
 
-## 🧩 PART 2: Custom Components & State Management
+## PART 2: Custom Components & State Management
 **Responsible Team Member: [Name]**
 
 ### Scope
@@ -139,7 +122,7 @@ components/
 
 ---
 
-## 📱 PART 3: Screens & Navigation
+## PART 3: Screens & Navigation
 **Responsible Team Member: [Name]**
 
 ### Scope
@@ -212,20 +195,7 @@ app/
 
 ---
 
-## 📊 Points Distribution
-
-| Part | Team Member | Estimated Points | Key Criteria |
-|------|-------------|------------------|--------------|
-| 1 | [Name] | ~12 points | API, Themes, Architecture |
-| 2 | [Name] | ~12 points | Components, State, Events |
-| 3 | [Name] | ~13 points | Screens, Navigation, UX |
-| **Shared** | **All** | **3 points** | **Requirements Documentation** |
-
-**Total: 40 points maximum**
-
----
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Expo CLI installed
@@ -246,11 +216,3 @@ app/
 - Presentation preparation (10-15 minutes)
 
 ---
-
-## 📞 Team Communication
-- Regular check-ins every 2-3 days
-- Shared documentation of progress
-- Issue tracking for blockers
-- Code review before integration
-
-**Good luck with your Recipe Box project! 🍳📱**
