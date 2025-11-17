@@ -93,9 +93,9 @@ This project is organized into three development parts for team collaboration:
 
 Comprehensive documentation is available in the `/docs` directory:
 
-- [Project Division](docs/PROJECT_DIVISION.md) - Team collaboration structure
-- [Part 1 Summary](docs/PART1_SUMMARY.md) - Implementation overview
-- [Part 1 Development Guide](docs/PART1_DEVELOPMENT_GUIDE.md) - Detailed development explanation
+- [Project Division](RecipeBox/docs/PROJECT_DIVISION.md) - Team collaboration structure
+- [Part 1 Summary](RecipeBox/docs/PART1_SUMMARY.md) - Implementation overview
+- [Part 1 Development Guide](RecipeBox/docs/PART1_DEVELOPMENT_GUIDE.md) - Detailed development explanation
 
 ## Assessment Criteria
 
