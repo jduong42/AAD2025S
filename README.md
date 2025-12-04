@@ -68,26 +68,44 @@ RecipeBox/
 
 ## Development Team Structure
 
-This project is organized into three development parts for team collaboration:
+This project is organized into four development parts for team collaboration:
 
 ### Part 1: Core Infrastructure (Completed)
+
+**Responsible: Juha Duong** ✅
+
 - TypeScript type definitions
 - API service layer with TheMealDB integration
 - Theme system with light/dark mode support
 - Centralized styling with Flexbox utilities
 - Configuration and constants
 
-### Part 2: Components & State Management
-- React Context for favorites management
-- Custom reusable components (RecipeCard, SearchInput, FavoriteButton)
-- State management with AsyncStorage integration
-- Component interaction and event handling
+### Part 2: Custom Components
 
-### Part 3: Screens & Navigation
+**Responsible: [Team Member 2 Name]**
+
+- Custom reusable components (RecipeCard, SearchInput, LoadingSpinner)
+- Component styling and theming integration
+- Event handlers and user interactions
+- Image components and accessibility
+
+### Part 3: State Management & Navigation
+
+**Responsible: [Team Member 3 Name]**
+
+- React Context for favorites management
+- AsyncStorage integration for data persistence
+- FavoriteButton component with state integration
+- Expo Router navigation setup and configuration
+
+### Part 4: Screens Implementation
+
+**Responsible: [Team Member 4 Name]**
+
 - Search screen with FlatList implementation
 - Recipe detail screen with route parameters
-- Favorites screen with saved recipes
-- Expo Router navigation setup
+- Favorites screen with saved recipes display
+- Screen layouts and user flows
 
 ## Documentation
 
@@ -114,6 +132,7 @@ This project fulfills the following assessment requirements:
 ## API Integration
 
 The app integrates with TheMealDB API:
+
 - Base URL: https://www.themealdb.com/api/json/v1/1
 - Search endpoint for recipe discovery
 - Detail endpoint for complete recipe information
@@ -122,6 +141,7 @@ The app integrates with TheMealDB API:
 ## Contributing
 
 This is a group project with defined roles:
+
 1. Review the project division documentation
 2. Implement assigned components following established patterns
 3. Test integration between parts

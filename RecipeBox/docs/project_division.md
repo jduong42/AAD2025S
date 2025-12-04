@@ -1,9 +1,10 @@
 # Recipe Box - Group Project Division
 
 ## Project Overview
+
 A React Native Recipe Box application using TheMealDB API that allows users to search for recipes, view details, and save favorites.
 
-## App Requirements 
+## App Requirements
 
 1. The user can search for recipes by keyword using TheMealDB API
 2. The application must have exactly three distinct screens (Search, Recipe Detail, Favorites)
@@ -23,15 +24,18 @@ A React Native Recipe Box application using TheMealDB API that allows users to s
 
 ---
 
-# TEAM DIVISION
+# TEAM DIVISION (4 Members)
 
 ## PART 1: Core Infrastructure & API Integration
-**Responsible Team Member: [Juha Duong]**
+
+**Responsible Team Member: [Juha Duong]** ✅ COMPLETED
 
 ### Scope
+
 Foundation layer including API services, types, themes, and core utilities.
 
 ### Files to Create/Modify
+
 ```
 services/
   └── mealdbAPI.ts
@@ -45,19 +49,23 @@ constants/
 ```
 
 ### Specific Tasks
+
 1. **API Service Implementation**
+
    - Create `services/mealdbAPI.ts` with HTTP GET functions
    - Implement `searchRecipes(query: string)`
    - Implement `getRecipeDetails(id: string)`
    - Handle error cases and loading states
 
 2. **TypeScript Types**
+
    - Define `Recipe` interface
    - Define `SearchResult` interface
    - Define `FavoriteRecipe` type
    - Define API response types
 
 3. **Theme System**
+
    - Create light/dark theme objects
    - Define color constants
    - Create theme context provider
@@ -69,6 +77,7 @@ constants/
    - Responsive design patterns
 
 ### Assessment Criteria Addressed
+
 - HTTP GET requests (2 points)
 - Themes (2 points)
 - Centralized styles (2 points)
@@ -77,61 +86,134 @@ constants/
 
 ---
 
-## PART 2: Custom Components & State Management
-**Responsible Team Member: [Name]**
+## PART 2: Custom Components
+
+**Responsible Team Member: [Team Member 2 Name]**
 
 ### Scope
-Reusable UI components and global state management system.
+
+Reusable UI components for displaying recipes and handling user input.
 
 ### Files to Create/Modify
+
 ```
-context/
-  └── FavoritesContext.tsx
 components/
   ├── RecipeCard.tsx
   ├── SearchInput.tsx
-  ├── FavoriteButton.tsx
   └── LoadingSpinner.tsx
 ```
 
 ### Specific Tasks
-1. **React Context State Management**
-   - Create `FavoritesContext` with Provider
-   - Implement add/remove favorite functionality
-   - Persist favorites using AsyncStorage
-   - Export custom hooks (`useFavorites`)
 
-2. **Custom Components (4+ components)**
-   - `RecipeCard`: Displays recipe info with image and navigation
-   - `SearchInput`: Text input with search icon and handlers
-   - `FavoriteButton`: Toggle favorite state with visual feedback
-   - `LoadingSpinner`: Consistent loading indicator
+1. **RecipeCard Component**
 
-3. **Component Features**
-   - Event handlers for user interactions
-   - Proper TypeScript props interfaces
-   - Accessibility support
-   - Platform-specific styling where needed
+   - Displays recipe info with image, title, and category
+   - Accept recipe data as props (Recipe type from Part 1)
+   - Include Image component with proper sizing and loading states
+   - Handle onPress navigation callback prop
+   - Apply theme-aware styling using theme from Part 1
+   - Add accessibility labels
+
+2. **SearchInput Component**
+
+   - Text input with search icon and handlers
+   - Controlled input with value and onChange props
+   - Search icon and clear button
+   - Debounced search functionality (300ms)
+   - Keyboard handling (return key = search)
+   - Theme-aware styling
+
+3. **LoadingSpinner Component**
+
+   - Platform-specific activity indicator
+   - Optional text message prop
+   - Theme-aware colors
+   - Center alignment utility
+
+4. **Component Features**
+   - Event handlers for all user interactions
+   - Proper TypeScript props interfaces for each component
+   - Accessibility labels and roles
+   - Platform-specific styling where needed (iOS vs Android)
+   - Integration with theme system from Part 1
 
 ### Assessment Criteria Addressed
-- React Context state management (2 points)
+
 - Custom components 2+ (2 points)
 - Image components (2 points)
 - Event handlers (1 point)
 - Platform incompatibilities management (1 point)
+- Adaptive and responsive UIs (1 point)
 
 ---
 
-## PART 3: Screens & Navigation
-**Responsible Team Member: [Name]**
+## PART 3: State Management & Navigation
+
+**Responsible Team Member: [Team Member 3 Name]**
 
 ### Scope
-All screen components and navigation setup.
+
+Global state management, favorites functionality, and navigation configuration.
 
 ### Files to Create/Modify
+
+```
+context/
+  └── FavoritesContext.tsx
+components/
+  └── FavoriteButton.tsx
+app/
+  └── _layout.tsx (modify)
+```
+
+### Specific Tasks
+
+1. **React Context State Management**
+
+   - Create `FavoritesContext` with Provider
+   - Implement add/remove favorite functionality
+   - Persist favorites using AsyncStorage
+   - Export custom hooks (`useFavorites`)
+   - Load saved favorites on app start
+   - Type definitions for context state and actions
+
+2. **FavoriteButton Component**
+
+   - Toggle favorite state with visual feedback
+   - Accept recipe object as prop
+   - Visual feedback (heart icon filled/unfilled)
+   - Integration with FavoritesContext
+   - Haptic feedback on press
+   - Theme-aware styling
+
+3. **Navigation Setup**
+   - Modify `_layout.tsx` for proper routing
+   - Implement Stack navigation with headers
+   - Configure tab navigation (Search, Favorites)
+   - Add navigation icons and styling
+   - Set up route structure for all screens
+
+### Assessment Criteria Addressed
+
+- React Context state management (2 points)
+- Expo Navigation (2 points)
+- Custom components (FavoriteButton) (1 point)
+- Good architectural principles (1 point)
+
+---
+
+## PART 4: Screens Implementation
+
+**Responsible Team Member: [Team Member 4 Name]**
+
+### Scope
+
+All screen components implementing the user interface and user flows.
+
+### Files to Create/Modify
+
 ```
 app/
-  ├── _layout.tsx (modify)
   ├── index.tsx (create)
   ├── favorites.tsx (create)
   └── detail/
@@ -139,34 +221,47 @@ app/
 ```
 
 ### Specific Tasks
-1. **Navigation Setup**
-   - Modify `_layout.tsx` for proper routing
-   - Implement Stack navigation with headers
-   - Add navigation buttons and icons
-   - Handle route parameters
 
-2. **Search Screen (`index.tsx`)**
-   - FlatList for search results
-   - Search functionality integration
-   - Loading states and error handling
+1. **Search Screen (`index.tsx`)**
+
+   - Use SearchInput component from Part 2
+   - FlatList for search results using RecipeCard from Part 2
+   - Integration with mealdbAPI.searchRecipes() from Part 1
+   - Loading states using LoadingSpinner from Part 2
+   - Error handling and empty state messages
    - Pull-to-refresh capability
+   - Navigation to detail screen on card press
 
-3. **Recipe Detail Screen (`detail/[id].tsx`)**
-   - Large image display
-   - Recipe information layout
-   - Favorite toggle functionality
-   - Route parameter handling
+2. **Recipe Detail Screen (`detail/[id].tsx`)**
+
+   - Route parameter handling for recipe ID
+   - Fetch recipe details using mealdbAPI.getRecipeDetails() from Part 1
+   - Large Image component for recipe photo
+   - Recipe information layout (ingredients, instructions, category)
    - ScrollView for long content
+   - FavoriteButton integration from Part 3
+   - Loading and error states
+   - Back navigation
 
-4. **Favorites Screen (`favorites.tsx`)**
-   - FlatList for saved recipes
-   - Empty state handling
-   - Remove from favorites functionality
-   - Navigation to recipe details
+3. **Favorites Screen (`favorites.tsx`)**
+
+   - Access favorites from FavoritesContext (Part 3)
+   - FlatList displaying saved recipes using RecipeCard (Part 2)
+   - Empty state handling ("No favorites yet")
+   - Navigation to recipe details on card press
+   - Pull-to-refresh to update list
+   - Theme-aware styling
+
+4. **Screen Polish**
+   - Consistent header styling across all screens
+   - Proper spacing and layout using commonStyles from Part 1
+   - Loading states for all async operations
+   - Error boundaries and fallback UI
+   - Keyboard dismissal on scroll
 
 ### Assessment Criteria Addressed
+
 - FlatLists/ScrollView (2 points)
-- Expo Navigation (2 points)
 - Route parameters (1 point)
 - App looks good and is easy to use (3 points)
 - Adaptive and responsive UIs (1 point)
@@ -176,40 +271,59 @@ app/
 ## 🔗 Integration Guidelines
 
 ### Communication Between Parts
-1. **Part 1 → Part 2**: Provides API functions and types
-2. **Part 1 → Part 3**: Provides theme and common styles
-3. **Part 2 → Part 3**: Provides components and context
-4. **Part 3**: Integrates everything into working screens
+
+1. **Part 1 → All Parts**: Provides API functions, types, theme, and common styles (Foundation)
+2. **Part 2 → Part 4**: Provides UI components (RecipeCard, SearchInput, LoadingSpinner)
+3. **Part 3 → Part 4**: Provides FavoritesContext, FavoriteButton, and navigation structure
+4. **Part 4**: Integrates everything into working screens with complete user flows
+
+### Dependency Chain
+
+```
+Part 1 (COMPLETED) ✅
+    ↓
+Part 2 & Part 3 (Can work in parallel)
+    ↓
+Part 4 (Requires Parts 2 & 3)
+```
 
 ### Testing Integration
-- Test API calls work with components
-- Verify state management across screens
-- Ensure theme consistency
-- Check navigation flows
+
+- **After Part 2**: Test components render with mock data from Part 1 types
+- **After Part 3**: Test FavoritesContext and navigation setup independently
+- **After Part 4**: Full integration testing of all screens and user flows
+- Verify state management works across all screens
+- Ensure theme consistency throughout the app
+- Check navigation flows and route parameters
 
 ### Code Review Checkpoints
-1. **After Part 1**: API and types working
-2. **After Part 2**: Components render correctly
-3. **After Part 3**: Full app functionality
-4. **Final Review**: Polish and optimization
+
+1. **Part 1 Complete** ✅: API and types working, theme system operational
+2. **After Part 2**: Components render correctly with proper styling and events
+3. **After Part 3**: Context, FavoriteButton work, navigation configured
+4. **After Part 4**: All screens functional with proper integration
+5. **Final Review**: Polish, optimization, and bug fixes
 
 ---
 
 ## Getting Started
 
 ### Prerequisites
+
 - Expo CLI installed
 - Node.js and npm
 - Git repository set up
 - TheMealDB API documentation reviewed
 
 ### Development Workflow
+
 1. Create feature branches for each part
 2. Regular commits with clear messages
 3. Merge to main branch after testing
 4. Coordinate integration milestones
 
 ### Final Deliverables
+
 - Working React Native app
 - Clean, documented code
 - Team evaluation document
