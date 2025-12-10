@@ -1,5 +1,6 @@
 // authLogic handles user authentication processes
 
+import { FIREBASE_LOGIN_URL, FIREBASE_SIGNUP_URL } from "@/config/firebase";
 import axios from "axios";
 
 export const validateEmail = (email: string): boolean => {
@@ -52,10 +53,7 @@ export const handleLogin = async (
   }
 
   try {
-    const FIREBASE_API_KEY = process.env.EXPO_PUBLIC_FIREBASE_API_KEY;
-    const API_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`;
-
-    const response = await axios.post(API_URL, {
+    const response = await axios.post(FIREBASE_LOGIN_URL, {
       email: email,
       password: password,
       returnSecureToken: true,
@@ -122,9 +120,7 @@ export const handleSignUp = async (
   }
 
   try {
-    const FIREBASE_API_KEY = process.env.EXPO_PUBLIC_FIREBASE_API_KEY;
-    const API_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`;
-    const response = await axios.post(API_URL, {
+    const response = await axios.post(FIREBASE_SIGNUP_URL, {
       email: email,
       password: password,
       returnSecureToken: true,
