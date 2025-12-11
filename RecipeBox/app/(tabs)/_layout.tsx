@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Alert, Platform, TouchableOpacity } from "react-native";
+import { Alert, Platform, Pressable } from "react-native";
 
 import { HapticTab } from "@/components/haptic-tab";
 import { ThemedText } from "@/components/themed-text";
@@ -39,13 +39,13 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: true,
         headerRight: () => (
-          <TouchableOpacity onPress={handleLogout} style={{ marginRight: 15 }}>
+          <Pressable onPress={handleLogout} style={{ marginRight: 15 }}>
             <ThemedText
               style={{ color: "#FF3B30", fontSize: 16, fontWeight: "600" }}
             >
               Logout
             </ThemedText>
-          </TouchableOpacity>
+          </Pressable>
         ),
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,

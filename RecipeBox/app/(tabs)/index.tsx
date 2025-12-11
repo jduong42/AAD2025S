@@ -1,12 +1,14 @@
 import type { RecipeSummary } from "@/services/mealdb";
 import { searchRecipes } from "@/services/mealdb";
 import searchStyles from "@/styles/search";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
   Alert,
   FlatList,
   Image,
+  Pressable,
   Text,
   TextInput,
   TouchableOpacity,
@@ -14,6 +16,7 @@ import {
 } from "react-native";
 
 export default function SearchScreen() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [recipes, setRecipes] = useState<RecipeSummary[]>([]);
   const [loading, setLoading] = useState(false);
@@ -39,8 +42,15 @@ export default function SearchScreen() {
     setRecipes(result.data || []);
   };
 
+  const handleRecipePress = (id: string) => {
+    router.push(`/recipe/${id}`);
+  };
+
   const renderRecipeCard = ({ item }: { item: RecipeSummary }) => (
-    <TouchableOpacity style={searchStyles.recipeCard}>
+    <Pressable
+      style={searchStyles.recipeCard}
+      onPress={() => handleRecipePress(item.id)}
+    >
       <Image
         source={{ uri: item.thumbnail }}
         style={searchStyles.recipeImage}
@@ -55,7 +65,7 @@ export default function SearchScreen() {
         )}
         {item.area && <Text style={searchStyles.recipeArea}>{item.area}</Text>}
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 
   return (
