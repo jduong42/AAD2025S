@@ -42,6 +42,14 @@ export const idStyles = StyleSheet.create({
     marginBottom: 12,
   },
 
+  favoriteButton: {
+    marginRight: 8,
+    fontSize: 28,
+  },
+
+  favoriteText: {
+    fontSize: 28,
+  },
   // Recipe name
   recipeName: {
     fontSize: 28,

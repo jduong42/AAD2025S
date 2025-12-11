@@ -1,3 +1,4 @@
+import { useFavorites } from "@/context/FavoritesContext";
 import type { Recipe } from "@/services/mealdb";
 import { getRecipeById } from "@/services/mealdb";
 import { idStyles } from "@/styles/idStyles";
@@ -7,6 +8,7 @@ import {
   ActivityIndicator,
   Alert,
   Image,
+  Pressable,
   ScrollView,
   Text,
   View,
@@ -18,6 +20,8 @@ export default function RecipeDetailScreen() {
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
   const loadRecipe = async () => {
     if (!id) {
@@ -45,6 +49,32 @@ export default function RecipeDetailScreen() {
     loadRecipe();
   }, [id]);
 
+  const handleToggleFavorite = () => {
+    if (!recipe) return;
+
+    const isCurrentlyFavorited = isFavorite(recipe.id);
+
+    if (isCurrentlyFavorited) {
+      removeFavorite(recipe.id);
+      Alert.alert(
+        "Removed from favorites",
+        `${recipe.name} has been removed from your favorites.`
+      );
+    } else {
+      addFavorite({
+        id: recipe.id,
+        name: recipe.name,
+        thumbnail: recipe.thumbnail,
+        category: recipe.category,
+        area: recipe.area,
+      });
+      Alert.alert(
+        "Added to favorites",
+        `${recipe.name} has been added to your favorites!`
+      );
+    }
+  };
+
   if (loading) {
     return (
       <>
@@ -68,10 +98,25 @@ export default function RecipeDetailScreen() {
     );
   }
 
+  const isRecipeFavorited = isFavorite(recipe.id);
+
   return (
     <>
       <Stack.Screen
-        options={{ title: recipe.name, headerBackTitle: "Search" }}
+        options={{
+          title: recipe.name,
+          headerBackTitle: "Search",
+          headerRight: () => (
+            <Pressable
+              onPress={handleToggleFavorite}
+              style={idStyles.favoriteButton}
+            >
+              <Text style={idStyles.favoriteText}>
+                {isRecipeFavorited ? "❤️" : "🤍"}
+              </Text>
+            </Pressable>
+          ),
+        }}
       />
       <ScrollView style={idStyles.container}>
         <Image
