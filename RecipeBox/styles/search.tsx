@@ -113,13 +113,14 @@ const searchStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 40,
+    paddingVertical: 200,
   },
 
   emptyText: {
     fontSize: 16,
     color: "#999",
     textAlign: "center",
+    marginBottom: 8,
   },
 });
 

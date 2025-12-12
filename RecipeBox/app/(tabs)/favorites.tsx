@@ -1,32 +1,57 @@
-import { StyleSheet } from "react-native";
+import { useFavorites } from "@/context/FavoritesContext";
+import type { RecipeSummary } from "@/services/mealdb";
+import searchStyles from "@/styles/search";
+import { useRouter } from "expo-router";
+import { FlatList, Image, Pressable, Text, View } from "react-native";
 
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { Fonts } from "@/constants/theme";
+export default function FavoritesScreen() {
+  const router = useRouter();
+  const { favorites } = useFavorites();
 
-export default function TabTwoScreen() {
+  const handleRecipePress = (id: string) => {
+    router.push(`/recipe/${id}`);
+  };
+
+  const renderRecipeCard = ({ item }: { item: RecipeSummary }) => (
+    <Pressable
+      style={searchStyles.recipeCard}
+      onPress={() => handleRecipePress(item.id)}
+    >
+      <Image
+        source={{ uri: item.thumbnail }}
+        style={searchStyles.recipeImage}
+        resizeMode="cover"
+      />
+      <View style={searchStyles.recipeInfo}>
+        <Text style={searchStyles.recipeName} numberOfLines={2}>
+          {item.name}
+        </Text>
+        {item.category && (
+          <Text style={searchStyles.recipeCategory}>{item.category}</Text>
+        )}
+        {item.area && <Text style={searchStyles.recipeArea}>{item.area}</Text>}
+      </View>
+    </Pressable>
+  );
+
   return (
-    <ThemedView style={styles.titleContainer}>
-      <ThemedText
-        type="title"
-        style={{
-          fontFamily: Fonts.rounded,
-        }}
-      >
-        Navbar Working
-      </ThemedText>
-    </ThemedView>
+    <View style={searchStyles.container}>
+      <Text style={searchStyles.title}>Favorites</Text>
+      <FlatList
+        data={favorites}
+        renderItem={renderRecipeCard}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={searchStyles.listContainer}
+        ListEmptyComponent={
+          <View style={searchStyles.emptyContainer}>
+            <Text style={searchStyles.emptyText}>🤍</Text>
+            <Text style={searchStyles.emptyText}>No favorites yet!</Text>
+            <Text style={searchStyles.emptyText}>
+              Add some recipes to your favorites to see them here.
+            </Text>
+          </View>
+        }
+      />
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-  },
-  stepContainer: {
-    gap: 8,
-  },
-});
