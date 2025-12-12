@@ -43,7 +43,8 @@ export const idStyles = StyleSheet.create({
   },
 
   favoriteButton: {
-    marginRight: 8,
+    marginRight: -38,
+    marginTop: 2,
     fontSize: 28,
   },
 

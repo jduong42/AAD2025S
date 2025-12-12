@@ -11,7 +11,6 @@ import {
   Pressable,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -83,7 +82,7 @@ export default function SearchScreen() {
         autoCorrect={false}
       />
 
-      <TouchableOpacity
+      <Pressable
         style={[
           searchStyles.searchButton,
           loading && searchStyles.searchButtonDisabled,
@@ -96,7 +95,7 @@ export default function SearchScreen() {
         ) : (
           <Text style={searchStyles.searchButtonText}>Search</Text>
         )}
-      </TouchableOpacity>
+      </Pressable>
 
       <FlatList
         data={recipes}
