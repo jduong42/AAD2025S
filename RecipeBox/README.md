@@ -1,4 +1,4 @@
-# RecipeBox - Recipe Search & Favorites App 🍳
+# RecipeBox - Recipe Search & Favorites App 
 
 > **Branch:** `juha_test`  
 > **Project Type:** School Group Project  
