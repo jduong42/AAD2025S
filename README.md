@@ -82,7 +82,7 @@ This project is organized into four development parts for team collaboration:
 
 ### Part 2: Custom Components
 
-**Responsible: [Team Member 2 Name]**
+**Responsible: Niko Lehtonen** ✅
 
 - Custom reusable components (RecipeCard, SearchInput, LoadingSpinner)
 - Component styling and theming integration

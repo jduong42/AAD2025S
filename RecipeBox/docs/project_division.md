@@ -88,7 +88,7 @@ constants/
 
 ## PART 2: Custom Components
 
-**Responsible Team Member: [Team Member 2 Name]**
+**Responsible Team Member: Niko Lehtonen** ✅ COMPLETED
 
 ### Scope
 
