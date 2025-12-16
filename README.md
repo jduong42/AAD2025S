@@ -91,7 +91,7 @@ This project is organized into four development parts for team collaboration:
 
 ### Part 3: State Management & Navigation
 
-**Responsible: [Team Member 3 Name]**
+**Responsible: Jeremias Salo** ✅
 
 - React Context for favorites management
 - AsyncStorage integration for data persistence
