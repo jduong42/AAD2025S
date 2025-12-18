@@ -17,6 +17,13 @@ export const layoutStyles = StyleSheet.create({
     backgroundColor: lightTheme.colors.background,
   },
 
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: lightTheme.spacing.lg,
+  },
+
   safeContainer: {
     flex: 1,
     backgroundColor: lightTheme.colors.background,
@@ -475,6 +482,11 @@ export const imageStyles = StyleSheet.create({
     aspectRatio: 16 / 9,
     borderRadius: lightTheme.borderRadius.md,
   },
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: lightTheme.spacing.xl,
+  },
 });
 
 // Loading and state styles
@@ -563,6 +575,36 @@ export const utilityStyles = StyleSheet.create({
   },
 });
 
+export const welcomeStyles = StyleSheet.create({
+  title: {
+    fontSize: 36,
+    fontWeight: "bold",
+    color: lightTheme.colors.text,
+    marginBottom: lightTheme.spacing.sm,
+    textAlign: "center",
+  },
+  tagline: {
+    fontSize: 16,
+    color: lightTheme.colors.textSecondary,
+    textAlign: "center",
+    marginBottom: lightTheme.spacing.xl,
+    paddingHorizontal: lightTheme.spacing.lg,
+  },
+  button: {
+    backgroundColor: lightTheme.colors.primary,
+    paddingVertical: lightTheme.spacing.md,
+    paddingHorizontal: lightTheme.spacing.xl,
+    borderRadius: lightTheme.borderRadius.lg,
+    minWidth: 200,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 18,
+    fontWeight: "600",
+  },
+});
+
 // Export all styles as a single object for easy importing
 export const commonStyles = {
   layout: layoutStyles,
@@ -575,4 +617,5 @@ export const commonStyles = {
   image: imageStyles,
   state: stateStyles,
   utility: utilityStyles,
+  welcome: welcomeStyles,
 };
