@@ -98,16 +98,16 @@ This project is organized into four development parts for team collaboration:
 - FavoriteButton component with state integration
 - Expo Router navigation setup and configuration
 
-### Part 4: Screens Implementation ✅
+### Part 4: Screens Implementation 
 
-**Responsible: Juha Duong**
+**Responsible: Juha Duong** ✅
 
-- ✅ Search screen with FlatList implementation
-- ✅ Recipe detail screen with route parameters
-- ✅ Favorites screen with saved recipes display
-- ✅ Screen layouts and user flows
+- Search screen with FlatList implementation
+- Recipe detail screen with route parameters
+- Favorites screen with saved recipes display
+- Screen layouts and user flows
 
-### Other Changes ✅
+### Other Changes 
 
 **Responsible: Juha Duong**
 
