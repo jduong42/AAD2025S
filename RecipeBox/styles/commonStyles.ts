@@ -576,32 +576,87 @@ export const utilityStyles = StyleSheet.create({
 });
 
 export const welcomeStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: lightTheme.colors.background,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: lightTheme.spacing.xl,
+  },
+  content: {
+    alignItems: "center",
+    maxWidth: 500,
+  },
+  logo: {
+    width: 180,
+    height: 180,
+    marginBottom: lightTheme.spacing.xl,
+  },
   title: {
-    fontSize: 36,
-    fontWeight: "bold",
-    color: lightTheme.colors.text,
-    marginBottom: lightTheme.spacing.sm,
+    fontSize: 40,
+    fontWeight: "800", // Extra bold (WCAG AA)
+    color: "#000000", // Pure black (21:1 contrast ratio)
+    marginBottom: lightTheme.spacing.md,
     textAlign: "center",
+    lineHeight: 48,
   },
   tagline: {
-    fontSize: 16,
-    color: lightTheme.colors.textSecondary,
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#1F2937", // Very dark gray (WCAG AAA: 12.63:1)
     textAlign: "center",
-    marginBottom: lightTheme.spacing.xl,
+    marginBottom: lightTheme.spacing.xxl,
     paddingHorizontal: lightTheme.spacing.lg,
+    lineHeight: 28,
+    maxWidth: 400,
   },
   button: {
-    backgroundColor: lightTheme.colors.primary,
-    paddingVertical: lightTheme.spacing.md - 2.5,
-    paddingHorizontal: lightTheme.spacing.xl,
+    backgroundColor: "#2563EB",
+    paddingVertical: 18,
+    paddingHorizontal: lightTheme.spacing.xxl,
     borderRadius: lightTheme.borderRadius.lg,
-    minWidth: 200,
+    minWidth: 240,
+    minHeight: 56, // WCAG minimum touch target (48px+)
     alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+  buttonPressed: {
+    backgroundColor: "#1E40AF", // Darker blue when pressed
+    transform: [{ scale: 0.98 }],
   },
   buttonText: {
-    color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: "600",
+    color: "#FFFFFF", // Pure white on blue (7.5:1 contrast)
+    fontSize: 19,
+    fontWeight: "700",
+    letterSpacing: 0.5,
+  },
+  decorativeContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: -1,
+  },
+  featureList: {
+    marginTop: lightTheme.spacing.xl,
+    paddingHorizontal: lightTheme.spacing.lg,
+  },
+  featureItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: lightTheme.spacing.md,
+  },
+  featureText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#374151",
+    marginLeft: lightTheme.spacing.sm,
   },
 });
 

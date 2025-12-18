@@ -1,18 +1,12 @@
-import React, { useRef, useState } from "react";
-import {
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-  Platform,
-  View,
-  Animated,
-} from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { TouchableOpacity, Platform, View, Animated } from "react-native";
 import * as Haptics from "expo-haptics";
 import { Ionicons } from "@expo/vector-icons";
 import { useFavorites } from "../context/FavoritesContext";
 import { lightTheme } from "../styles/theme";
 import { FavoriteRecipe } from "../types";
 import { favoriteStyles } from "../styles/favorites";
+import { AccessibleAlert } from "./AccessibleAlert"; // ← Import
 
 interface FavoriteButtonProps {
   recipe: FavoriteRecipe;
@@ -30,12 +24,37 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const theme = lightTheme;
 
+  // Add state for alert
+  const [alertConfig, setAlertConfig] = useState<{
+    visible: boolean;
+    title: string;
+    message: string;
+    buttons: any[];
+  } | null>(null);
+
   const isCurrentlyFavorite = isFavorite(recipe.idMeal);
 
   const iconName = isCurrentlyFavorite ? "heart" : "heart-outline";
   const iconColor = isCurrentlyFavorite
     ? theme.colors.error
-    : theme.colors.text;
+    : theme.colors.textSecondary;
+
+  useEffect(() => {
+    if (isAnimating) {
+      Animated.sequence([
+        Animated.spring(scaleAnim, {
+          toValue: 1.3,
+          useNativeDriver: true,
+          speed: 50,
+        }),
+        Animated.spring(scaleAnim, {
+          toValue: 1,
+          useNativeDriver: true,
+          speed: 50,
+        }),
+      ]).start(() => setIsAnimating(false));
+    }
+  }, [isAnimating]);
 
   const handlePress = async () => {
     if (isAnimating) return;
@@ -52,13 +71,15 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       if (isCurrentlyFavorite) {
         setIsAnimating(false);
 
-        Alert.alert(
-          "Remove Favorite",
-          `Remove "${recipe.strMeal}" from your favorites?`,
-          [
+        setAlertConfig({
+          visible: true,
+          title: "Remove Favorite",
+          message: `Remove ${recipe.strMeal} from your favorites?`,
+          buttons: [
             {
               text: "Cancel",
               style: "cancel",
+              onPress: () => {},
             },
             {
               text: "Remove",
@@ -69,63 +90,76 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
                 onToggle?.(false);
                 setIsAnimating(false);
 
-                Alert.alert(
-                  "Removed",
-                  `"${recipe.strMeal}" has been removed from your favorites.`,
-                  [{ text: "OK" }]
-                );
+                setAlertConfig({
+                  visible: true,
+                  title: "Removed",
+                  message: `${recipe.strMeal} has been removed from your favorites.`,
+                  buttons: [
+                    { text: "OK", style: "default", onPress: () => {} },
+                  ],
+                });
               },
             },
-          ]
-        );
+          ],
+        });
       } else {
-        // Adding favorite
         await addFavorite(recipe);
         onToggle?.(true);
 
-        Alert.alert(
-          "Added to Favorites! ❤️",
-          `"${recipe.strMeal}" has been added to your favorites.`,
-          [{ text: "OK" }]
-        );
+        setAlertConfig({
+          visible: true,
+          title: "Added to Favorites! ❤️",
+          message: `${recipe.strMeal} has been added to your favorites.`,
+          buttons: [{ text: "OK", style: "default", onPress: () => {} }],
+        });
 
         setIsAnimating(false);
       }
     } catch (error) {
       console.error("Error toggling favorite:", error);
 
-      Alert.alert("Error", "Failed to update favorites. Please try again.", [
-        { text: "OK" },
-      ]);
+      setAlertConfig({
+        visible: true,
+        title: "Error",
+        message: "Failed to update favorites. Please try again.",
+        buttons: [{ text: "OK", style: "default", onPress: () => {} }],
+      });
 
       setIsAnimating(false);
     }
   };
 
   return (
-    <TouchableOpacity
-      style={favoriteStyles.favoriteButtonContainer}
-      onPress={handlePress}
-      disabled={isAnimating}
-      activeOpacity={0.7}
-      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-      accessibilityRole="button"
-      accessibilityLabel={
-        isCurrentlyFavorite
-          ? `Remove ${recipe.strMeal} from favorites`
-          : `Add ${recipe.strMeal} to favorites`
-      }
-      accessibilityHint={
-        isCurrentlyFavorite
-          ? "Removes this recipe from your favorites"
-          : "Adds this recipe to your favorites"
-      }
-    >
-      <View style={favoriteStyles.favoriteIconBackground}>
-        <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
-          <Ionicons name={iconName} size={size} color={iconColor} />
-        </Animated.View>
-      </View>
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity
+        style={favoriteStyles.favoriteButtonContainer}
+        onPress={handlePress}
+        disabled={isAnimating}
+        activeOpacity={0.7}
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        accessibilityRole="button"
+        accessibilityLabel={
+          isCurrentlyFavorite
+            ? `Remove ${recipe.strMeal} from favorites`
+            : `Add ${recipe.strMeal} to favorites`
+        }
+      >
+        <View style={favoriteStyles.favoriteIconBackground}>
+          <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
+            <Ionicons name={iconName} size={size} color={iconColor} />
+          </Animated.View>
+        </View>
+      </TouchableOpacity>
+
+      {alertConfig && (
+        <AccessibleAlert
+          visible={alertConfig.visible}
+          title={alertConfig.title}
+          message={alertConfig.message}
+          buttons={alertConfig.buttons}
+          onClose={() => setAlertConfig(null)}
+        />
+      )}
+    </>
   );
 };
