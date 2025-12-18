@@ -105,7 +105,7 @@ export interface APIError {
 }
 
 // Loading states
-export type LoadingState = 'idle' | 'loading' | 'success' | 'error';
+export type LoadingState = "idle" | "loading" | "success" | "error";
 
 // Theme types
 export interface ThemeColors {
@@ -150,17 +150,17 @@ export interface Theme {
     xxl: number;
   };
   fontWeight: {
-    regular: '400';
-    medium: '500';
-    semibold: '600';
-    bold: '700';
+    regular: "400";
+    medium: "500";
+    semibold: "600";
+    bold: "700";
   };
 }
 
 // Navigation types
 export type RootStackParamList = {
   index: undefined;
-  'detail/[id]': { id: string };
+  "detail/[id]": { id: string };
   favorites: undefined;
 };
 
@@ -174,7 +174,7 @@ export interface RecipeCardProps {
 export interface SearchInputProps {
   value: string;
   onChangeText: (text: string) => void;
-  onSearch: () => void;
+  onSearch: (query: string) => void;
   placeholder?: string;
   loading?: boolean;
 }
@@ -182,7 +182,7 @@ export interface SearchInputProps {
 export interface FavoriteButtonProps {
   recipeId: string;
   recipe?: FavoriteRecipe;
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   showText?: boolean;
 }
 

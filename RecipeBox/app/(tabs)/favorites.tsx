@@ -1,23 +1,22 @@
-import React from 'react';
+import React from "react";
 import {
   View,
-  Text,
   StyleSheet,
   FlatList,
   RefreshControl,
   Alert,
   Pressable,
-} from 'react-native';
-import { router } from 'expo-router';
-import { useFavorites } from '@/context/FavoritesContext';
-import { RecipeCard } from '@/components/RecipeCard';
-import { LoadingSpinner } from '@/components/LoadingSpinner';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedView } from '@/components/themed-view';
-import { ThemedText } from '@/components/themed-text';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { lightTheme } from '@/styles/theme';
-import { FavoriteRecipe } from '@/types';
+} from "react-native";
+import { router } from "expo-router";
+import { useFavorites } from "@/context/FavoritesContext";
+import { RecipeCard } from "@/components/RecipeCard";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import ParallaxScrollView from "@/components/parallax-scroll-view";
+import { ThemedView } from "@/components/themed-view";
+import { ThemedText } from "@/components/themed-text";
+import { IconSymbol } from "@/components/ui/icon-symbol";
+import { lightTheme } from "@/styles/theme";
+import { FavoriteRecipe } from "@/types";
 
 export default function FavoritesScreen() {
   const { state, removeFavorite, clearAllFavorites } = useFavorites();
@@ -30,16 +29,16 @@ export default function FavoritesScreen() {
 
   const handleRemoveFavorite = (recipe: FavoriteRecipe) => {
     Alert.alert(
-      'Remove Favorite',
+      "Remove Favorite",
       `Remove "${recipe.strMeal}" from your favorites?`,
       [
         {
-          text: 'Cancel',
-          style: 'cancel',
+          text: "Cancel",
+          style: "cancel",
         },
         {
-          text: 'Remove',
-          style: 'destructive',
+          text: "Remove",
+          style: "destructive",
           onPress: () => removeFavorite(recipe.idMeal),
         },
       ]
@@ -50,16 +49,16 @@ export default function FavoritesScreen() {
     if (state.favorites.length === 0) return;
 
     Alert.alert(
-      'Clear All Favorites',
-      'Are you sure you want to remove all favorites? This action cannot be undone.',
+      "Clear All Favorites",
+      "Are you sure you want to remove all favorites? This action cannot be undone.",
       [
         {
-          text: 'Cancel',
-          style: 'cancel',
+          text: "Cancel",
+          style: "cancel",
         },
         {
-          text: 'Clear All',
-          style: 'destructive',
+          text: "Clear All",
+          style: "destructive",
           onPress: () => clearAllFavorites(),
         },
       ]
@@ -74,11 +73,14 @@ export default function FavoritesScreen() {
   }, []);
 
   const renderRecipeItem = ({ item }: { item: FavoriteRecipe }) => (
-    <RecipeCard
-      recipe={item}
-      onPress={() => handleRecipePress(item)}
-      showCategory={true}
-    />
+    <View>
+      <RecipeCard
+        recipe={item}
+        onPress={() => handleRecipePress(item)}
+        showCategory={true}
+      />
+      <Pressable onPress={() => handleRemoveFavorite(item)}></Pressable>
+    </View>
   );
 
   const renderEmptyState = () => (
@@ -92,13 +94,11 @@ export default function FavoritesScreen() {
       <Pressable
         style={({ pressed }) => [
           styles.searchButton,
-          { opacity: pressed ? 0.6 : 1 }
+          { opacity: pressed ? 0.6 : 1 },
         ]}
-        onPress={() => router.push('/explore')}
+        onPress={() => router.push("/")}
       >
-        <ThemedText style={styles.searchButtonText}>
-          Explore Recipes
-        </ThemedText>
+        <ThemedText style={styles.searchButtonText}>Explore Recipes</ThemedText>
       </Pressable>
     </ThemedView>
   );
@@ -106,7 +106,7 @@ export default function FavoritesScreen() {
   if (state.loading) {
     return (
       <ParallaxScrollView
-        headerBackgroundColor={{ light: '#FF6B35', dark: '#FF8A5B' }}
+        headerBackgroundColor={{ light: "#FF6B35", dark: "#FF8A5B" }}
         headerImage={
           <IconSymbol
             size={310}
@@ -114,7 +114,8 @@ export default function FavoritesScreen() {
             name="heart.fill"
             style={styles.headerImage}
           />
-        }>
+        }
+      >
         <ThemedView style={styles.centered}>
           <LoadingSpinner />
           <ThemedText style={styles.loadingText}>
@@ -128,7 +129,7 @@ export default function FavoritesScreen() {
   if (state.error) {
     return (
       <ParallaxScrollView
-        headerBackgroundColor={{ light: '#FF6B35', dark: '#FF8A5B' }}
+        headerBackgroundColor={{ light: "#FF6B35", dark: "#FF8A5B" }}
         headerImage={
           <IconSymbol
             size={310}
@@ -136,16 +137,22 @@ export default function FavoritesScreen() {
             name="heart.fill"
             style={styles.headerImage}
           />
-        }>
+        }
+      >
         <ThemedView style={styles.centered}>
           <ThemedText type="subtitle" style={styles.errorText}>
             {state.error}
           </ThemedText>
           <Pressable
-            style={[styles.retryButton, { backgroundColor: theme.colors.primary }]}
+            style={[
+              styles.retryButton,
+              { backgroundColor: theme.colors.primary },
+            ]}
             onPress={() => window.location.reload()}
           >
-            <ThemedText style={[styles.retryButtonText, { color: theme.colors.white }]}>
+            <ThemedText
+              style={[styles.retryButtonText, { color: theme.colors.white }]}
+            >
               Retry
             </ThemedText>
           </Pressable>
@@ -155,73 +162,81 @@ export default function FavoritesScreen() {
   }
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#CCFBF1', dark: '#134E4A' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#14B8A6"
-          name="heart.fill"
-          style={styles.headerImage}
+    <FlatList
+      data={state.favorites}
+      keyExtractor={(item) => item.idMeal}
+      renderItem={renderRecipeItem}
+      contentContainerStyle={[
+        styles.listContainer,
+        state.favorites.length === 0 && styles.emptyListContainer,
+      ]}
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor={theme.colors.primary}
         />
-      }>
-      <ThemedView style={styles.header}>
-        <ThemedView style={styles.headerMain}>
-          <ThemedText type="title">
-            My Favorites
-          </ThemedText>
-          <ThemedText style={styles.count}>
-            {state.favorites.length} recipe{state.favorites.length !== 1 ? 's' : ''}
-          </ThemedText>
-        </ThemedView>
-        
-        {state.favorites.length > 0 && (
-          <Pressable
-            style={[styles.clearButton, { borderColor: theme.colors.error }]}
-            onPress={handleClearAll}
-          >
-            <ThemedText style={[styles.clearButtonText, { color: theme.colors.error }]}>
-              Clear All
-            </ThemedText>
-          </Pressable>
-        )}
-      </ThemedView>
+      }
+      ListHeaderComponent={() => (
+        <>
+          <View style={styles.parallaxHeader}>
+            <IconSymbol size={150} color="#14B8A6" name="heart.fill" />
+          </View>
+          <ThemedView style={styles.header}>
+            <ThemedView style={styles.headerMain}>
+              <ThemedText type="title">My Favorites</ThemedText>
+              <ThemedText style={styles.count}>
+                {state.favorites.length} recipe
+                {state.favorites.length !== 1 ? "s" : ""}
+              </ThemedText>
+            </ThemedView>
 
-      <FlatList
-        data={state.favorites}
-        keyExtractor={(item) => item.idMeal}
-        renderItem={renderRecipeItem}
-        contentContainerStyle={[
-          styles.listContainer,
-          state.favorites.length === 0 && styles.emptyListContainer
-        ]}
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor={theme.colors.primary}
-          />
-        }
-        ListEmptyComponent={renderEmptyState}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-      />
-    </ParallaxScrollView>
+            {state.favorites.length > 0 && (
+              <Pressable
+                style={[
+                  styles.clearButton,
+                  { borderColor: theme.colors.error },
+                ]}
+                onPress={handleClearAll}
+              >
+                <ThemedText
+                  style={[
+                    styles.clearButtonText,
+                    { color: theme.colors.error },
+                  ]}
+                >
+                  Clear All
+                </ThemedText>
+              </Pressable>
+            )}
+          </ThemedView>
+        </>
+      )}
+      ListEmptyComponent={renderEmptyState}
+      ItemSeparatorComponent={() => <View style={styles.separator} />}
+    />
   );
 }
 
 const styles = StyleSheet.create({
+  parallaxHeader: {
+    height: 200,
+    backgroundColor: "#CCFBF1",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     flex: 1,
   },
   centered: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
@@ -231,12 +246,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: "700",
     marginBottom: 4,
   },
   count: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   clearButton: {
     paddingHorizontal: 12,
@@ -246,7 +261,7 @@ const styles = StyleSheet.create({
   },
   clearButtonText: {
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   listContainer: {
     paddingHorizontal: 16,
@@ -260,19 +275,19 @@ const styles = StyleSheet.create({
   },
   emptyState: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 40,
   },
   emptyTitle: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
   emptyDescription: {
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 24,
     marginBottom: 24,
   },
@@ -282,7 +297,7 @@ const styles = StyleSheet.create({
   },
   searchButtonText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   loadingText: {
     fontSize: 16,
@@ -290,7 +305,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
     margin: 20,
   },
   retryButton: {
@@ -301,12 +316,12 @@ const styles = StyleSheet.create({
   },
   retryButtonText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   headerImage: {
-    color: '#808080',
+    color: "#808080",
     bottom: -90,
     left: -35,
-    position: 'absolute',
+    position: "absolute",
   },
 });
