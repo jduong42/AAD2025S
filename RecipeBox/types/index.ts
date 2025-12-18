@@ -4,7 +4,6 @@
  */
 
 import { TextStyle } from "react-native";
-import { ViewStyle } from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 // Core Recipe interface based on TheMealDB API structure
 export interface Recipe {
@@ -83,17 +82,23 @@ export interface DetailResponse {
   meals: Recipe[] | null;
 }
 
-// Application state types
+// Application state types - used in FavoritesContext
 export interface FavoriteRecipe {
   idMeal: string;
   strMeal: string;
   strMealThumb: string;
   strCategory: string;
   strArea: string;
-  dateAdded: string; // ISO string
+  strInstructions: string; // ← ADDED: Needed for recipe details
 }
 
-// Processed ingredient for display
+// Simple ingredient structure for display
+export interface Ingredient {
+  name: string;
+  measure: string;
+}
+
+// Processed ingredient with combined string (alternative format)
 export interface ProcessedIngredient {
   name: string;
   measure: string;
@@ -169,7 +174,7 @@ export type RootStackParamList = {
 
 // Component prop types
 export interface RecipeCardProps {
-  recipe: RecipeCard;
+  recipe: RecipeCard | FavoriteRecipe; // ← UPDATED: Accept both types
   onPress?: () => void;
   showCategory?: boolean;
 }
@@ -184,19 +189,23 @@ export interface SearchInputProps {
 }
 
 export interface FavoriteButtonProps {
-  recipeId: string;
-  recipe?: FavoriteRecipe;
-  size?: "small" | "medium" | "large";
-  showText?: boolean;
+  recipe: FavoriteRecipe; // ← UPDATED: Consistent with actual usage
+  size?: number; // ← UPDATED: Takes pixel size, not "small" | "medium"
+  onToggle?: (isFavorite: boolean) => void; // ← ADDED: Callback for toggle
 }
 
 // Context types
-export interface FavoritesContextType {
+export interface FavoritesState {
   favorites: FavoriteRecipe[];
-  addFavorite: (recipe: Recipe) => void;
-  removeFavorite: (recipeId: string) => void;
-  isFavorite: (recipeId: string) => boolean;
   loading: boolean;
+}
+
+export interface FavoritesContextType {
+  state: FavoritesState; // ← UPDATED: Match actual context
+  addFavorite: (recipe: FavoriteRecipe) => Promise<void>;
+  removeFavorite: (recipeId: string) => Promise<void>;
+  clearAllFavorites: () => Promise<void>; // ← ADDED: Clear all function
+  isFavorite: (recipeId: string) => boolean;
 }
 
 // Utility types

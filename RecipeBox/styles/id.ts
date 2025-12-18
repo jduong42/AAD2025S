@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { lightTheme } from "./theme";
 
 const styles = StyleSheet.create({
   container: {
@@ -53,11 +54,6 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 24,
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "600",
-    marginBottom: 12,
-  },
   instructions: {
     fontSize: 16,
     lineHeight: 24,
@@ -74,6 +70,89 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     margin: 20,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: lightTheme.colors.text,
+    marginBottom: lightTheme.spacing.md,
+    marginTop: lightTheme.spacing.lg,
+  },
+  ingredientsContainer: {
+    backgroundColor: lightTheme.colors.surface,
+    borderRadius: lightTheme.borderRadius.lg,
+    padding: lightTheme.spacing.lg,
+    marginBottom: lightTheme.spacing.xl,
+  },
+  ingredientItem: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginBottom: lightTheme.spacing.sm,
+    paddingVertical: lightTheme.spacing.xs,
+  },
+  ingredientBullet: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: lightTheme.colors.primary,
+    marginTop: 8,
+    marginRight: lightTheme.spacing.sm,
+  },
+  ingredientText: {
+    flex: 1,
+    fontSize: 16,
+    color: lightTheme.colors.text,
+    lineHeight: 24,
+  },
+  ingredientMeasure: {
+    fontWeight: "600",
+    color: lightTheme.colors.primary,
+  },
+  instructionsContainer: {
+    marginBottom: lightTheme.spacing.xl,
+  },
+  stepContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginBottom: lightTheme.spacing.lg,
+    paddingRight: lightTheme.spacing.md,
+  },
+  stepNumber: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: lightTheme.colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: lightTheme.spacing.md,
+    marginTop: 2,
+  },
+  stepNumberText: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: lightTheme.colors.white,
+  },
+  stepText: {
+    flex: 1,
+    fontSize: 16,
+    lineHeight: 26,
+    color: lightTheme.colors.text,
+  },
+  youtubeButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: lightTheme.colors.error,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: lightTheme.borderRadius.lg,
+    marginTop: lightTheme.spacing.lg,
+    gap: 8,
+  },
+  youtubeButtonText: {
+    fontSize: 17,
+    fontWeight: "600",
+    color: lightTheme.colors.white,
   },
 });
 
