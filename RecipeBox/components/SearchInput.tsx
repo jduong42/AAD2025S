@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Platform,
   ActivityIndicator,
+  TextStyle,
 } from "react-native";
 import { SearchInputProps } from "../types";
 import { lightTheme, dimensions } from "../styles/theme";
@@ -16,6 +17,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   onSearch,
   placeholder = "Search recipes...",
   loading = false,
+  style,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -72,7 +74,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
 
       <TextInput
         ref={inputRef}
-        style={[styles.input, { color: theme.colors.text }]}
+        style={[styles.input, style]}
         value={value}
         onChangeText={onChangeText}
         onSubmitEditing={handleSubmit}

@@ -7,6 +7,7 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { searchRecipes } from "@/services/mealdbAPI";
 import { RecipeCard as RecipeCardType } from "@/types";
 import { layoutStyles, stateStyles } from "@/styles/commonStyles";
+import { searchStyles } from "@/styles/searchStyles";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SearchScreen() {
@@ -36,12 +37,21 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={layoutStyles.container}>
-      <SearchInput
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        onSearch={handleSearch}
-        placeholder="Search for recipes..."
-      />
+      <View style={searchStyles.header}>
+        <Text style={searchStyles.headerTitle}>Search</Text>
+        <Text style={searchStyles.headerSubtitle}>
+          Discover delicious recipes from around the world
+        </Text>
+      </View>
+      <View style={searchStyles.searchContainer}>
+        <SearchInput
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+          onSearch={handleSearch}
+          placeholder="Search for recipes..."
+          style={searchStyles.searchInput}
+        />
+      </View>
 
       {loading && <LoadingSpinner />}
 

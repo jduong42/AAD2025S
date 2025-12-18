@@ -3,6 +3,9 @@
  * Ensures type safety across the entire application
  */
 
+import { TextStyle } from "react-native";
+import { ViewStyle } from "react-native/Libraries/StyleSheet/StyleSheetTypes";
+
 // Core Recipe interface based on TheMealDB API structure
 export interface Recipe {
   idMeal: string;
@@ -177,6 +180,7 @@ export interface SearchInputProps {
   onSearch: (query: string) => void;
   placeholder?: string;
   loading?: boolean;
+  style?: TextStyle | TextStyle[];
 }
 
 export interface FavoriteButtonProps {

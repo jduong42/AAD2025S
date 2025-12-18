@@ -592,7 +592,7 @@ export const welcomeStyles = StyleSheet.create({
   },
   button: {
     backgroundColor: lightTheme.colors.primary,
-    paddingVertical: lightTheme.spacing.md,
+    paddingVertical: lightTheme.spacing.md - 2.5,
     paddingHorizontal: lightTheme.spacing.xl,
     borderRadius: lightTheme.borderRadius.lg,
     minWidth: 200,
@@ -602,6 +602,24 @@ export const welcomeStyles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "600",
+  },
+});
+
+export const headerStyles = StyleSheet.create({
+  headerBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: lightTheme.colors.background,
+  },
+  backButton: {
+    padding: 8,
+    borderRadius: 20,
+  },
+  headerRight: {
+    padding: 4,
   },
 });
 
@@ -618,4 +636,5 @@ export const commonStyles = {
   state: stateStyles,
   utility: utilityStyles,
   welcome: welcomeStyles,
+  header: headerStyles,
 };

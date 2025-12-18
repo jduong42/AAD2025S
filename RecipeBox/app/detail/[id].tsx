@@ -6,6 +6,7 @@ import {
   Image,
   Alert,
   ActivityIndicator,
+  Pressable,
 } from "react-native";
 import { useLocalSearchParams, router } from "expo-router";
 import { useFavorites } from "@/context/FavoritesContext";
@@ -14,6 +15,9 @@ import { getRecipeDetails } from "@/services/mealdbAPI";
 import { lightTheme } from "@/styles/theme";
 import { Recipe, FavoriteRecipe } from "@/types";
 import styles from "@/styles/id";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { IconSymbol } from "@/components/ui/icon-symbol";
+import { headerStyles } from "@/styles/commonStyles";
 
 export default function RecipeDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -98,73 +102,87 @@ export default function RecipeDetailScreen() {
   const favoriteRecipe = convertToFavoriteRecipe(recipe);
 
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor: theme.colors.background }]}
-    >
-      <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: recipe.strMealThumb }}
-          style={styles.image}
-          resizeMode="cover"
-        />
-        <View style={styles.favoriteButtonContainer}>
-          <FavoriteButton recipe={favoriteRecipe} size={32} />
-        </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <View style={headerStyles.headerBar}>
+        <Pressable
+          onPress={() => router.back()}
+          style={headerStyles.backButton}
+          hitSlop={8}
+        >
+          <IconSymbol name="chevron.left" size={28} color={theme.colors.text} />
+        </Pressable>
       </View>
-
-      <View style={styles.content}>
-        <View style={styles.header}>
-          <Text style={[styles.title, { color: theme.colors.text }]}>
-            {recipe.strMeal}
-          </Text>
-          <View style={styles.tags}>
-            <Text
-              style={[
-                styles.tag,
-                {
-                  backgroundColor: theme.colors.primary,
-                  color: theme.colors.white,
-                },
-              ]}
-            >
-              {recipe.strCategory}
-            </Text>
-            <Text
-              style={[
-                styles.tag,
-                {
-                  backgroundColor: theme.colors.secondary,
-                  color: theme.colors.white,
-                },
-              ]}
-            >
-              {recipe.strArea}
-            </Text>
+      <ScrollView
+        style={[styles.container, { backgroundColor: theme.colors.background }]}
+      >
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: recipe.strMealThumb }}
+            style={styles.image}
+            resizeMode="cover"
+          />
+          <View style={styles.favoriteButtonContainer}>
+            <FavoriteButton recipe={favoriteRecipe} size={32} />
           </View>
         </View>
 
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-            Instructions
-          </Text>
-          <Text
-            style={[styles.instructions, { color: theme.colors.textSecondary }]}
-          >
-            {recipe.strInstructions}
-          </Text>
-        </View>
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <Text style={[styles.title, { color: theme.colors.text }]}>
+              {recipe.strMeal}
+            </Text>
+            <View style={styles.tags}>
+              <Text
+                style={[
+                  styles.tag,
+                  {
+                    backgroundColor: theme.colors.primary,
+                    color: theme.colors.white,
+                  },
+                ]}
+              >
+                {recipe.strCategory}
+              </Text>
+              <Text
+                style={[
+                  styles.tag,
+                  {
+                    backgroundColor: theme.colors.secondary,
+                    color: theme.colors.white,
+                  },
+                ]}
+              >
+                {recipe.strArea}
+              </Text>
+            </View>
+          </View>
 
-        {recipe.strYoutube && (
           <View style={styles.section}>
             <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-              Video Tutorial
+              Instructions
             </Text>
-            <Text style={[styles.link, { color: theme.colors.primary }]}>
-              Watch on YouTube
+            <Text
+              style={[
+                styles.instructions,
+                { color: theme.colors.textSecondary },
+              ]}
+            >
+              {recipe.strInstructions}
             </Text>
           </View>
-        )}
-      </View>
-    </ScrollView>
+
+          {recipe.strYoutube && (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+                Video Tutorial
+              </Text>
+              <Text style={[styles.link, { color: theme.colors.primary }]}>
+                Watch on YouTube
+              </Text>
+            </View>
+          )}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

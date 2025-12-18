@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
-} from 'react-native';
-import { RecipeCardProps } from '../types';
-import { lightTheme, shadows, dimensions } from '../styles/theme';
+} from "react-native";
+import { RecipeCardProps } from "../types";
+import { lightTheme, shadows, dimensions } from "../styles/theme";
 
 export const RecipeCard: React.FC<RecipeCardProps> = ({
   recipe,
@@ -61,8 +61,18 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
             )}
           </>
         ) : (
-          <View style={[styles.imagePlaceholder, { backgroundColor: theme.colors.surface }]}>
-            <Text style={[styles.placeholderText, { color: theme.colors.textSecondary }]}>
+          <View
+            style={[
+              styles.imagePlaceholder,
+              { backgroundColor: theme.colors.surface },
+            ]}
+          >
+            <Text
+              style={[
+                styles.placeholderText,
+                { color: theme.colors.textSecondary },
+              ]}
+            >
               No Image
             </Text>
           </View>
@@ -83,8 +93,10 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({
             <Text style={[styles.category, { color: theme.colors.primary }]}>
               {recipe.strCategory}
             </Text>
-            <Text style={[styles.separator, { color: theme.colors.textSecondary }]}>
-              {' • '}
+            <Text
+              style={[styles.separator, { color: theme.colors.textSecondary }]}
+            >
+              {" • "}
             </Text>
             <Text style={[styles.area, { color: theme.colors.textSecondary }]}>
               {recipe.strArea}
@@ -100,34 +112,34 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: lightTheme.borderRadius.md,
     marginBottom: lightTheme.spacing.sm,
-    overflow: 'hidden',
+    overflow: "hidden",
     ...shadows.light.ios,
     elevation: shadows.light.android.elevation,
   },
   imageContainer: {
-    width: '100%',
+    width: "100%",
     height: dimensions.imageSize.medium,
-    position: 'relative',
+    position: "relative",
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   imageLoadingContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: lightTheme.colors.surface,
   },
   imagePlaceholder: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   placeholderText: {
     fontSize: lightTheme.fontSize.sm,
@@ -143,8 +155,8 @@ const styles = StyleSheet.create({
     lineHeight: lightTheme.fontSize.lg * 1.3,
   },
   metaContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: lightTheme.spacing.xs,
   },
   category: {
