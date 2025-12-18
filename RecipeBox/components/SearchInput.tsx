@@ -64,12 +64,8 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       ]}
     >
       <View style={styles.searchIconContainer}>
-        <View
-          style={[styles.searchIcon, { backgroundColor: theme.colors.primary }]}
-        >
-          <View style={styles.searchIconCircle} />
-          <View style={styles.searchIconHandle} />
-        </View>
+        <View style={styles.searchIconCircle} />
+        <View style={styles.searchIconHandle} />
       </View>
 
       <TextInput

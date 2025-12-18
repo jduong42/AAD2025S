@@ -11,6 +11,7 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { lightTheme } from "@/styles/theme";
 import { FavoriteRecipe } from "@/types";
 import styles from "@/styles/favorites";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function FavoritesScreen() {
   const { state, removeFavorite, clearAllFavorites } = useFavorites();
@@ -19,24 +20,6 @@ export default function FavoritesScreen() {
 
   const handleRecipePress = (recipe: FavoriteRecipe) => {
     router.push(`/detail/${recipe.idMeal}`);
-  };
-
-  const handleRemoveFavorite = (recipe: FavoriteRecipe) => {
-    Alert.alert(
-      "Remove Favorite",
-      `Remove "${recipe.strMeal}" from your favorites?`,
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "Remove",
-          style: "destructive",
-          onPress: () => removeFavorite(recipe.idMeal),
-        },
-      ]
-    );
   };
 
   const handleClearAll = () => {
@@ -73,7 +56,6 @@ export default function FavoritesScreen() {
         onPress={() => handleRecipePress(item)}
         showCategory={true}
       />
-      <Pressable onPress={() => handleRemoveFavorite(item)}></Pressable>
     </View>
   );
 
@@ -156,59 +138,61 @@ export default function FavoritesScreen() {
   }
 
   return (
-    <FlatList
-      data={state.favorites}
-      keyExtractor={(item) => item.idMeal}
-      renderItem={renderRecipeItem}
-      contentContainerStyle={[
-        styles.listContainer,
-        state.favorites.length === 0 && styles.emptyListContainer,
-      ]}
-      showsVerticalScrollIndicator={false}
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          tintColor={theme.colors.primary}
-        />
-      }
-      ListHeaderComponent={() => (
-        <>
-          <View style={styles.parallaxHeader}>
-            <IconSymbol size={150} color="#14B8A6" name="heart.fill" />
-          </View>
-          <ThemedView style={styles.header}>
-            <ThemedView style={styles.headerMain}>
-              <ThemedText type="title">My Favorites</ThemedText>
-              <ThemedText style={styles.count}>
-                {state.favorites.length} recipe
-                {state.favorites.length !== 1 ? "s" : ""}
-              </ThemedText>
-            </ThemedView>
-
-            {state.favorites.length > 0 && (
-              <Pressable
-                style={[
-                  styles.clearButton,
-                  { borderColor: theme.colors.error },
-                ]}
-                onPress={handleClearAll}
-              >
-                <ThemedText
-                  style={[
-                    styles.clearButtonText,
-                    { color: theme.colors.error },
-                  ]}
-                >
-                  Clear All
+    <SafeAreaView>
+      <FlatList
+        data={state.favorites}
+        keyExtractor={(item) => item.idMeal}
+        renderItem={renderRecipeItem}
+        contentContainerStyle={[
+          styles.listContainer,
+          state.favorites.length === 0 && styles.emptyListContainer,
+        ]}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={theme.colors.primary}
+          />
+        }
+        ListHeaderComponent={() => (
+          <>
+            <View style={styles.parallaxHeader}>
+              <IconSymbol size={150} color="#14B8A6" name="heart.fill" />
+            </View>
+            <ThemedView style={styles.header}>
+              <ThemedView style={styles.headerMain}>
+                <ThemedText type="title">My Favorites</ThemedText>
+                <ThemedText style={styles.count}>
+                  {state.favorites.length} recipe
+                  {state.favorites.length !== 1 ? "s" : ""}
                 </ThemedText>
-              </Pressable>
-            )}
-          </ThemedView>
-        </>
-      )}
-      ListEmptyComponent={renderEmptyState}
-      ItemSeparatorComponent={() => <View style={styles.separator} />}
-    />
+              </ThemedView>
+
+              {state.favorites.length > 0 && (
+                <Pressable
+                  style={[
+                    styles.clearButton,
+                    { borderColor: theme.colors.error },
+                  ]}
+                  onPress={handleClearAll}
+                >
+                  <ThemedText
+                    style={[
+                      styles.clearButtonText,
+                      { color: theme.colors.error },
+                    ]}
+                  >
+                    Clear All
+                  </ThemedText>
+                </Pressable>
+              )}
+            </ThemedView>
+          </>
+        )}
+        ListEmptyComponent={renderEmptyState}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
+    </SafeAreaView>
   );
 }
