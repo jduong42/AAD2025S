@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
+export const favoriteStyles = StyleSheet.create({
   parallaxHeader: {
     height: 200,
     backgroundColor: "#CCFBF1",
@@ -105,6 +105,18 @@ const styles = StyleSheet.create({
     left: -35,
     position: "absolute",
   },
+  favoriteButtonContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  favoriteIconBackground: {
+    backgroundColor: "rgba(255, 255, 255, 0.95)",
+    borderRadius: 50,
+    padding: 6,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
 });
-
-export default styles;

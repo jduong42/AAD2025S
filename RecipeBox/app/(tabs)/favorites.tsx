@@ -10,7 +10,7 @@ import { ThemedText } from "@/components/themed-text";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { lightTheme } from "@/styles/theme";
 import { FavoriteRecipe } from "@/types";
-import styles from "@/styles/favorites";
+import { favoriteStyles } from "@/styles/favorites";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function FavoritesScreen() {
@@ -60,21 +60,23 @@ export default function FavoritesScreen() {
   );
 
   const renderEmptyState = () => (
-    <ThemedView style={styles.emptyState}>
-      <ThemedText type="subtitle" style={styles.emptyTitle}>
+    <ThemedView style={favoriteStyles.emptyState}>
+      <ThemedText type="subtitle" style={favoriteStyles.emptyTitle}>
         No Favorites Yet
       </ThemedText>
-      <ThemedText style={styles.emptyDescription}>
+      <ThemedText style={favoriteStyles.emptyDescription}>
         Start exploring recipes and add them to your favorites to see them here.
       </ThemedText>
       <Pressable
         style={({ pressed }) => [
-          styles.searchButton,
+          favoriteStyles.searchButton,
           { opacity: pressed ? 0.6 : 1 },
         ]}
         onPress={() => router.push("/")}
       >
-        <ThemedText style={styles.searchButtonText}>Explore Recipes</ThemedText>
+        <ThemedText style={favoriteStyles.searchButtonText}>
+          Explore Recipes
+        </ThemedText>
       </Pressable>
     </ThemedView>
   );
@@ -88,13 +90,13 @@ export default function FavoritesScreen() {
             size={310}
             color="#FFFFFF"
             name="heart.fill"
-            style={styles.headerImage}
+            style={favoriteStyles.headerImage}
           />
         }
       >
-        <ThemedView style={styles.centered}>
+        <ThemedView style={favoriteStyles.centered}>
           <LoadingSpinner />
-          <ThemedText style={styles.loadingText}>
+          <ThemedText style={favoriteStyles.loadingText}>
             Loading favorites...
           </ThemedText>
         </ThemedView>
@@ -111,23 +113,26 @@ export default function FavoritesScreen() {
             size={310}
             color="#FFFFFF"
             name="heart.fill"
-            style={styles.headerImage}
+            style={favoriteStyles.headerImage}
           />
         }
       >
-        <ThemedView style={styles.centered}>
-          <ThemedText type="subtitle" style={styles.errorText}>
+        <ThemedView style={favoriteStyles.centered}>
+          <ThemedText type="subtitle" style={favoriteStyles.errorText}>
             {state.error}
           </ThemedText>
           <Pressable
             style={[
-              styles.retryButton,
+              favoriteStyles.retryButton,
               { backgroundColor: theme.colors.primary },
             ]}
             onPress={() => window.location.reload()}
           >
             <ThemedText
-              style={[styles.retryButtonText, { color: theme.colors.white }]}
+              style={[
+                favoriteStyles.retryButtonText,
+                { color: theme.colors.white },
+              ]}
             >
               Retry
             </ThemedText>
@@ -144,8 +149,8 @@ export default function FavoritesScreen() {
         keyExtractor={(item) => item.idMeal}
         renderItem={renderRecipeItem}
         contentContainerStyle={[
-          styles.listContainer,
-          state.favorites.length === 0 && styles.emptyListContainer,
+          favoriteStyles.listContainer,
+          state.favorites.length === 0 && favoriteStyles.emptyListContainer,
         ]}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -157,13 +162,13 @@ export default function FavoritesScreen() {
         }
         ListHeaderComponent={() => (
           <>
-            <View style={styles.parallaxHeader}>
+            <View style={favoriteStyles.parallaxHeader}>
               <IconSymbol size={150} color="#14B8A6" name="heart.fill" />
             </View>
-            <ThemedView style={styles.header}>
-              <ThemedView style={styles.headerMain}>
+            <ThemedView style={favoriteStyles.header}>
+              <ThemedView style={favoriteStyles.headerMain}>
                 <ThemedText type="title">My Favorites</ThemedText>
-                <ThemedText style={styles.count}>
+                <ThemedText style={favoriteStyles.count}>
                   {state.favorites.length} recipe
                   {state.favorites.length !== 1 ? "s" : ""}
                 </ThemedText>
@@ -172,14 +177,14 @@ export default function FavoritesScreen() {
               {state.favorites.length > 0 && (
                 <Pressable
                   style={[
-                    styles.clearButton,
+                    favoriteStyles.clearButton,
                     { borderColor: theme.colors.error },
                   ]}
                   onPress={handleClearAll}
                 >
                   <ThemedText
                     style={[
-                      styles.clearButtonText,
+                      favoriteStyles.clearButtonText,
                       { color: theme.colors.error },
                     ]}
                   >
@@ -191,7 +196,7 @@ export default function FavoritesScreen() {
           </>
         )}
         ListEmptyComponent={renderEmptyState}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={() => <View style={favoriteStyles.separator} />}
       />
     </SafeAreaView>
   );

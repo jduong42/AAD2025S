@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { SearchInputProps } from "../types";
 import { lightTheme, dimensions } from "../styles/theme";
+import { searchInputStyles } from "@/styles/searchStyles";
 
 export const SearchInput: React.FC<SearchInputProps> = ({
   value,
@@ -56,21 +57,16 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   return (
     <View
       style={[
-        styles.container,
+        searchInputStyles.container,
         {
           backgroundColor: theme.colors.surface,
           borderColor: isFocused ? theme.colors.primary : theme.colors.border,
         },
       ]}
     >
-      <View style={styles.searchIconContainer}>
-        <View style={styles.searchIconCircle} />
-        <View style={styles.searchIconHandle} />
-      </View>
-
       <TextInput
         ref={inputRef}
-        style={[styles.input, style]}
+        style={[searchInputStyles.input, style]}
         value={value}
         onChangeText={onChangeText}
         onSubmitEditing={handleSubmit}
@@ -88,13 +84,13 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       />
 
       {loading ? (
-        <View style={styles.rightIconContainer}>
+        <View style={searchInputStyles.rightIconContainer}>
           <ActivityIndicator size="small" color={theme.colors.primary} />
         </View>
       ) : (
         value.length > 0 && (
           <TouchableOpacity
-            style={styles.clearButton}
+            style={searchInputStyles.clearButton}
             onPress={handleClear}
             accessibilityRole="button"
             accessibilityLabel="Clear search"
@@ -102,12 +98,22 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           >
             <View
               style={[
-                styles.clearIcon,
+                searchInputStyles.clearIcon,
                 { backgroundColor: theme.colors.textSecondary },
               ]}
             >
-              <View style={[styles.clearIconLine, styles.clearIconLine1]} />
-              <View style={[styles.clearIconLine, styles.clearIconLine2]} />
+              <View
+                style={[
+                  searchInputStyles.clearIconLine,
+                  searchInputStyles.clearIconLine1,
+                ]}
+              />
+              <View
+                style={[
+                  searchInputStyles.clearIconLine,
+                  searchInputStyles.clearIconLine2,
+                ]}
+              />
             </View>
           </TouchableOpacity>
         )
@@ -115,77 +121,3 @@ export const SearchInput: React.FC<SearchInputProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: lightTheme.borderRadius.md,
-    borderWidth: 2,
-    paddingHorizontal: lightTheme.spacing.md,
-    minHeight: dimensions.buttonHeight.medium,
-    marginBottom: lightTheme.spacing.md,
-  },
-  searchIconContainer: {
-    marginRight: lightTheme.spacing.sm,
-  },
-  searchIcon: {
-    width: 20,
-    height: 20,
-    position: "relative",
-  },
-  searchIconCircle: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: lightTheme.colors.white,
-    position: "absolute",
-    top: 0,
-    left: 0,
-  },
-  searchIconHandle: {
-    width: 2,
-    height: 8,
-    backgroundColor: lightTheme.colors.white,
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    transform: [{ rotate: "45deg" }],
-  },
-  input: {
-    flex: 1,
-    fontSize: lightTheme.fontSize.md,
-    paddingVertical:
-      Platform.OS === "ios" ? lightTheme.spacing.sm : lightTheme.spacing.xs,
-  },
-  rightIconContainer: {
-    marginLeft: lightTheme.spacing.sm,
-  },
-  clearButton: {
-    marginLeft: lightTheme.spacing.sm,
-    padding: lightTheme.spacing.xs,
-  },
-  clearIcon: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-  },
-  clearIconLine: {
-    width: 10,
-    height: 2,
-    backgroundColor: lightTheme.colors.white,
-    position: "absolute",
-  },
-  clearIconLine1: {
-    transform: [{ rotate: "45deg" }],
-  },
-  clearIconLine2: {
-    transform: [{ rotate: "-45deg" }],
-  },
-});
-
-export default SearchInput;

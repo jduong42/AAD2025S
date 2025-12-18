@@ -1,10 +1,18 @@
-import React, { useState } from "react";
-import { TouchableOpacity, StyleSheet, Alert, Platform } from "react-native";
+import React, { useRef, useState } from "react";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  Platform,
+  View,
+  Animated,
+} from "react-native";
 import * as Haptics from "expo-haptics";
 import { Ionicons } from "@expo/vector-icons";
 import { useFavorites } from "../context/FavoritesContext";
 import { lightTheme } from "../styles/theme";
 import { FavoriteRecipe } from "../types";
+import { favoriteStyles } from "../styles/favorites";
 
 interface FavoriteButtonProps {
   recipe: FavoriteRecipe;
@@ -19,6 +27,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
 }) => {
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
   const [isAnimating, setIsAnimating] = useState(false);
+  const scaleAnim = useRef(new Animated.Value(1)).current;
   const theme = lightTheme;
 
   const isCurrentlyFavorite = isFavorite(recipe.idMeal);
@@ -95,18 +104,11 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
 
   return (
     <TouchableOpacity
-      style={[
-        styles.button,
-        {
-          backgroundColor: isCurrentlyFavorite
-            ? "rgba(239, 68, 68, 0.1)"
-            : "rgba(0, 0, 0, 0.05)",
-        },
-        isAnimating && styles.animating,
-      ]}
+      style={favoriteStyles.favoriteButtonContainer}
       onPress={handlePress}
       disabled={isAnimating}
       activeOpacity={0.7}
+      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       accessibilityRole="button"
       accessibilityLabel={
         isCurrentlyFavorite
@@ -119,29 +121,11 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
           : "Adds this recipe to your favorites"
       }
     >
-      <Ionicons name={iconName} size={size} color={iconColor} />
+      <View style={favoriteStyles.favoriteIconBackground}>
+        <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
+          <Ionicons name={iconName} size={size} color={iconColor} />
+        </Animated.View>
+      </View>
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  animating: {
-    opacity: 0.7,
-    transform: [{ scale: 0.95 }],
-  },
-});
